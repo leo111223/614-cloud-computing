@@ -53,3 +53,13 @@ resource "aws_instance" "my_server" {
      Name = "my ec2"
    }                  
 }
+
+terraform {
+  backend "s3" {
+    bucket         = "terraform-leo"  # Replace with your actual S3 bucket name
+    key            = "terraform.tfstate"           # File name in the S3 bucket
+    region         = "us-east-1"                   # AWS region where the bucket is located
+    encrypt        = true                          # Enable encryption for security
+    dynamodb_table = "terraform-lock-table"        # Optional: Enables state locking
+  }
+}
